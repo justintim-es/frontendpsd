@@ -1,0 +1,12 @@
+<section class="hero is-fullheight is-dark is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title has-text-primary">Bijna klaar!</p>
+      <p class="subtitle has-text-primary">nog even koppelen met onze betalingsprovider Stripe!</p>
+      <div class="spinner spinner-border has-text-primary" *ngIf="isFetch | async"></div>
+      <a mat-raised-button href="{{ url | async }}" *ngIf="isFetchSuccess | async" color="primary" class="has-text-dark" style="min-width: 100%;">
+        koppelen
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button routerLink="../">
+    <mat-icon color="accent">arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+<section class="hero is-fullheight-with-navbar is-dark is-bold">
+  <div class="hero-body">
+    <div class="container has-text-left">
+      <p class="title has-text-primary">
+        Winkel Inschrijven
+      </p>
+      <form [formGroup]="fg" (ngSubmit)="register()">
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>KVK-Nummer</mat-label>
+          <input matInput [formControl]="kvkFormControl" [errorStateMatcher]="errorMatcher" [(ngModel)]="kvk" />
+          <mat-error *ngIf="kvkFormControl.hasError('backend')">
+            {{ kvkError | async }}
+          </mat-error>
+          <mat-error *ngIf="kvkFormControl.hasError('required')">
+            Voer uw KVK-Nummer in
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>Bedrijfsnaam</mat-label>
+          <input matInput [formControl]="companyFormControl" [errorStateMatcher]="errorMatcher" [(ngModel)]="company" />
+          <mat-error *ngIf="companyFormControl.hasError('backend')">
+            {{ companyError | async }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>E-Mail</mat-label>
+          <input matInput [formControl]="emailFormControl" [errorStateMatcher]="errorMatcher" [(ngModel)]="email" />
+          <mat-error *ngIf="emailFormControl.hasError('backend')">
+            {{ emailError | async }}
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('email')">
+            Ongeldige E-Mail
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>Wachtwoord</mat-label>
+          <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="errorMatcher" [(ngModel)]="password" [type]="isHidePassword ? 'password' : 'text'" />
+          <button mat-icon-button matSuffix (click)="isHidePassword = !isHidePassword">
+            <mat-icon class="has-text-primary">{{isHidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="kvkFormControl.hasError('backend')">
+            {{ passwordError | async }}
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" style="min-width: 100%;" *ngIf="!(isFetch | async)">Inschrijven</button>
+        <div class="container has-text-centered">
+          <div class="spinner spinner-border spinner-border-sm has-text-primary has-text-centered" *ngIf="isFetch | async"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

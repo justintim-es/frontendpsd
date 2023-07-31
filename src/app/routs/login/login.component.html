@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  <button mat-button routerLink="/">
+    <strong class="has-text-dark is-size-4">persale.discount</strong>
+  </button>
+</mat-toolbar>
+<section class="hero is-fullheight-with-navbar is-dark is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title has-text-primary">Inloggen</p>
+      <form [formGroup]="fg" (ngSubmit)="fetch()">
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>E-Mail</mat-label>
+          <input matInput [formControl]="emailFormControl" [(ngModel)]="email" [errorStateMatcher]="errorMatcher" />
+          <mat-error *ngIf="emailFormControl.hasError('email')">
+            Ongeldige e-mail
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Voer uw e-mail in
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="min-width: 100%;">
+          <mat-label>Wachtwoord</mat-label>
+          <input matInput [formControl]="passwordFormControl" [(ngModel)]="password" [errorStateMatcher]="errorMatcher" [type]="isHidePassword ? 'password' : 'text'" />
+          <button mat-icon-button matSuffix (click)="isHidePassword = !isHidePassword">
+            <mat-icon class="has-text-primary">{{isHidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordFormControl.hasError('backend')">
+            {{ fetchError | async }}
+          </mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Voer uw wachtwoord in
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" *ngIf="!(isFetch | async)" style="min-width: 100%;">login</button>
+        <div class="spinner spinner-border spinner-border-sm has-text-primary" *ngIf="isFetch | async"></div>
+      </form>
+    </div>
+  </div>
+</section>

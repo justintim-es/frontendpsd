@@ -1,0 +1,14 @@
+<section class="hero is-fullheight is-dark is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="spinner spinner-border has-text-primary" *ngIf="isFetch | async"></div>
+      <p class="title has-text-primary" *ngIf="isFetchError | async">
+        {{ (fetchError | async)!.title  }}
+      </p>
+      <p class="subtitle has-text-primary" *ngIf="isFetchError | async">
+        {{ (fetchError | async)!.subtitle  }}
+      </p>
+      <a mat-raised-button color="primary" style="min-width: 100%;" href="{{ (fetchError | async)!.url }}" *ngIf="(fetchError | async)!.code == 1">opnieuw proberen</a>
+    </div>
+  </div>
+</section>
